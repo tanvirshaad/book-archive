@@ -8,7 +8,7 @@ const searchBook = () => {
         displayMessage.innerText = 'Please write something to get result';
     } else {
         displayMessage.innerText = '';
-        const url = `http://openlibrary.org/search.json?q=${searchText}`;
+        const url = `https://openlibrary.org/search.json?q=${searchText}`;
         fetch(url)
             .then((res) => res.json())
             .then((data) => displayBooks(data));
@@ -22,7 +22,7 @@ const displayBooks = (data) => {
     } else {
         //getting result number
         const resultNum = document.getElementById('result-number');
-        resultNum.innerHTML = `${data.numFound} Result Found`;
+        resultNum.innerHTML = `${data.numFound} Results Found`;
         //displaying books
         searchResult.textContent = '';
         const books = data.docs;
@@ -36,7 +36,7 @@ const displayBooks = (data) => {
                         <h5 class="card-title">${book.title}</h5>
                         <p class="card-text">
                             <h5>Author Name: <span class="fst-italic fw-normal">${book.author_name}</span></h6>
-                            <h6>Publisher: <span class="fw-normal">${book.publisher[0]}</span></h6>
+                            <h6>Publisher: <span class="fw-normal">${book.publisher}</span></h6>
                             <small class="text-muted">First Publish: ${book.first_publish_year}</small>
                         </p>
                     </div>
