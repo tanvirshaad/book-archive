@@ -1,15 +1,29 @@
+const displayMessage = document.getElementById('display-message');
+
 const searchBook = () => {
     const searchBox = document.getElementById('search-box');
     const searchText = searchBox.value;
-    // console.log(searchText);
-    const url = `http://openlibrary.org/search.json?q=${searchText}`;
-    fetch(url)
-        .then((res) => res.json())
-        .then((data) => displayBooks(data.docs));
+    searchBox.value = '';
+    if (searchText === '') {
+        displayMessage.innerText = 'Please write something to get result';
+    } else {
+        displayMessage.innerText = '';
+        const url = `http://openlibrary.org/search.json?q=${searchText}`;
+        fetch(url)
+            .then((res) => res.json())
+            .then((data) => displayBooks(data))
+            .catch((error) => displayError(error));
+    }
 };
-const displayBooks = (books) => {
-    console.log(books);
+const displayError = (error) => {
+    displayMessage.innerText = 'Something went wrong. Please try again later';
+};
+const displayBooks = (data) => {
     const searchResult = document.getElementById('search-result');
+    const resultNum = document.getElementById('result-number');
+    resultNum.innerHTML = `${data.numFound} Result Found`;
+    searchResult.textContent = '';
+    const books = data.docs;
     books.forEach((book) => {
         const div = document.createElement('div');
         div.classList.add('col');
@@ -19,7 +33,7 @@ const displayBooks = (books) => {
                 <div class="card-body">
                     <h5 class="card-title">${book.title}</h5>
                     <p class="card-text">
-                        <h6>Author Name: <span class="fst-italic fw-normal">${book.author_name}</span></h6>
+                        <h5>Author Name: <span class="fst-italic fw-normal">${book.author_name}</span></h6>
                         <h6>Publisher: <span class="fw-normal">${book.publisher[0]}</span></h6>
                         <small class="text-muted">First Publish: ${book.first_publish_year}</small>
                     </p>
