@@ -11,18 +11,19 @@
 </head>
 <body>
     <main>
+        <!-- search box -->
         <section class="container mt-3">
-            <h2 class="text-center mb-3 text-success">Search Your Favourite Books here</h2>
+            <h2 class="text-center mb-3 text-success">Search Your Favourite Books Here</h2>
             <div class="input-group mb-3 w-50 mx-auto">
                 <input id="search-box" type="text" class="form-control" placeholder="Search Books" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button onclick="searchBook()" class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+                <button onclick="searchBook()" class="btn btn-success" type="button" id="button-addon2">Search</button>
             </div>
             <!-- display message -->
-            <div id="display-message" class="text-center">
+            <div id="display-message" class="text-center text-danger">
             </div>
             <!-- show result number -->
-            <div id="result-number" class="text-center my-3">
-
+            <div class="text-center my-3 text-muted">
+                <h5 id="result-number"></h5>
             </div>
             <!-- search result -->
             <div id="search-result" class="row row-cols-1 row-cols-md-4 g-4">
